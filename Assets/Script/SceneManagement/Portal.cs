@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Script.Controller;
 using Script.Core;
 using UnityEngine;
@@ -65,6 +64,9 @@ namespace Script.SceneManagement
             saveWrapper.Load();
             
             UpdatePlayer(GetOtherPortal());
+            
+            saveWrapper.Save();
+            
             yield return new WaitForSeconds(fadeWaitTime);
             yield return fader.FadeIn(timeFadeIn);
             Destroy(gameObject);
@@ -73,9 +75,10 @@ namespace Script.SceneManagement
         private void UpdatePlayer(Portal otherPortal)
         {
             var player = GameObject.FindWithTag("Player");
-            player.GetComponent<NavMeshAgent>().Warp(otherPortal.spawnPawn.position);
+            player.GetComponent<NavMeshAgent>().enabled = false;
+            player.transform.position = otherPortal.spawnPawn.position;
             player.transform.rotation = otherPortal.spawnPawn.rotation;
-            
+            player.GetComponent<NavMeshAgent>().enabled = true;
         }
 
         private Portal GetOtherPortal()

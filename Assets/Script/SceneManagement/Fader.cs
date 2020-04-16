@@ -22,6 +22,12 @@ namespace Script.SceneManagement
 //            print("Fadein OK");
 //        }
 
+
+        public void FadeOutImmediate()
+        {
+            canvas.alpha = 1;
+        }
+
         public IEnumerator FadeOut(float time)
         {
             while (Math.Abs(canvas.alpha - 1) > 0)

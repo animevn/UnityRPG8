@@ -1,4 +1,6 @@
-﻿using Script.Saving;
+﻿using System;
+using System.Collections;
+using Script.Saving;
 using UnityEngine;
 
 namespace Script.SceneManagement
@@ -6,7 +8,15 @@ namespace Script.SceneManagement
     public class SavingWrapper : MonoBehaviour
     {
         private const string DefaultSave = "save";
-        
+
+        private IEnumerator Start()
+        {
+            var fader = FindObjectOfType<Fader>();
+            fader.FadeOutImmediate();
+            yield return GetComponent<SavingSystem>().LoadLastScene(DefaultSave);
+            yield return fader.FadeIn(1f);
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.L))
