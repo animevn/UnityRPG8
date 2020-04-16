@@ -1,10 +1,11 @@
 ﻿using Script.Core;
+using Script.Saving;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Script.Movement
 {
-    public class Mover : MonoBehaviour, IAction
+    public class Mover : MonoBehaviour, IAction, ISaveable
     {
         [SerializeField] private float maxSpeed = 5.66f;
         // ReSharper disable once InconsistentNaming
@@ -48,6 +49,19 @@ namespace Script.Movement
         public void Cancel()
         {
             navMeshAgent.isStopped = true;
+        }
+
+        public object CaptureState()
+        {
+            return new SerializableVector3(transform.position);
+        }
+
+        public void RestoreState(object state)
+        {
+            var position = (SerializableVector3) state;
+            GetComponent<NavMeshAgent>().enabled = false;
+            transform.position = position.ToVector();
+            GetComponent<NavMeshAgent>().enabled = true;
         }
     }
 }
