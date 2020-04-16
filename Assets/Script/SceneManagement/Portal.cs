@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Script.Controller;
 using Script.Core;
 using UnityEngine;
@@ -41,7 +42,12 @@ namespace Script.SceneManagement
                 Debug.LogError("No scene to load");
                 yield break;
             }
-            if (gameObject == null) yield break;
+            
+            //destroy the other portal when player come straight back to portal
+            foreach (var portal in FindObjectsOfType<Portal>())
+            {
+                if (portal != this) Destroy(portal.gameObject);
+            }
             
             var player = GameObject.FindWithTag("Player");
             player.GetComponent<ActionScheduler>().CancelAction();
