@@ -50,13 +50,20 @@ namespace Script.SceneManagement
             }
             
             var player = GameObject.FindWithTag("Player");
+            var saveWrapper = FindObjectOfType<SavingWrapper>();
             player.GetComponent<ActionScheduler>().CancelAction();
             player.GetComponent<PlayerController>().enabled = false;
             var fader = FindObjectOfType<Fader>();
             DontDestroyOnLoad(gameObject);
             print(gameObject.name);
             yield return fader.FadeOut(timeFadeOut);
+
+            saveWrapper.Save();
+            
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
+            
+            saveWrapper.Load();
+            
             UpdatePlayer(GetOtherPortal());
             yield return new WaitForSeconds(fadeWaitTime);
             yield return fader.FadeIn(timeFadeIn);

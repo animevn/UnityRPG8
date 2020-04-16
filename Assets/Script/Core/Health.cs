@@ -1,8 +1,9 @@
+using Script.Saving;
 using UnityEngine;
 
 namespace Script.Core
 {
-    public class Health:MonoBehaviour
+    public class Health:MonoBehaviour, ISaveable
     {
         [SerializeField] private float health = 100f;
 
@@ -35,6 +36,20 @@ namespace Script.Core
         public float GetHealth()
         {
             return health;
+        }
+
+        public object CaptureState()
+        {
+            return health;
+        }
+
+        public void RestoreState(object state)
+        {
+            health = (float) state;
+            if ((int)health == 0)
+            {
+                Die();
+            }
         }
     }
 }

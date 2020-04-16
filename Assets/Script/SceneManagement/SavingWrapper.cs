@@ -1,5 +1,4 @@
-﻿using System;
-using Script.Saving;
+﻿using Script.Saving;
 using UnityEngine;
 
 namespace Script.SceneManagement
@@ -21,12 +20,12 @@ namespace Script.SceneManagement
             }
         }
 
-        private void Save()
+        public void Save()
         {
             GetComponent<SavingSystem>().Save(DefaultSave);
         }
 
-        private void Load()
+        public void Load()
         {
             GetComponent<SavingSystem>().Load(DefaultSave);
         }
