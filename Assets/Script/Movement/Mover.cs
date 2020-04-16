@@ -1,4 +1,5 @@
-﻿using Script.Core;
+﻿using System.Collections.Generic;
+using Script.Core;
 using Script.Saving;
 using UnityEngine;
 using UnityEngine.AI;
@@ -51,16 +52,57 @@ namespace Script.Movement
             navMeshAgent.isStopped = true;
         }
 
+//        //dictionary way to save data
+//        public object CaptureState()
+//        {
+//            var objectTransform = transform;
+//            var data = new Dictionary<string, object>
+//            {
+//                ["position"] = new SerializableVector3(objectTransform.position),
+//                ["rotation"] = new SerializableVector3(objectTransform.eulerAngles)
+//            };
+//
+//            return data;
+//        }
+//
+//        public void RestoreState(object state)
+//        {
+//            var data = (Dictionary<string, object>) state;
+//            var position = (SerializableVector3) data["position"];
+//            var rotation = (SerializableVector3) data["rotation"];
+//            GetComponent<NavMeshAgent>().enabled = false;
+//            transform.position = position.ToVector();
+//            transform.eulerAngles = rotation.ToVector();
+//            GetComponent<NavMeshAgent>().enabled = true;
+//        }
+
+
+        //struct way
+        
+        [System.Serializable]
+        private struct MoverData
+        {
+            public SerializableVector3 position;
+            public SerializableVector3 rotation;
+        }
+        
         public object CaptureState()
         {
-            return new SerializableVector3(transform.position);
+            var objectTransform = transform;
+            var data = new MoverData
+            {
+                position = new SerializableVector3(objectTransform.position),
+                rotation = new SerializableVector3(objectTransform.eulerAngles)
+            };
+            return data;
         }
 
         public void RestoreState(object state)
         {
-            var position = (SerializableVector3) state;
+            var data = (MoverData) state;
             GetComponent<NavMeshAgent>().enabled = false;
-            transform.position = position.ToVector();
+            transform.position = data.position.ToVector();
+            transform.eulerAngles = data.rotation.ToVector();
             GetComponent<NavMeshAgent>().enabled = true;
         }
     }
