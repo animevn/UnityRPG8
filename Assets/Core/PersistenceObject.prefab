@@ -27,11 +27,11 @@ Transform:
   m_LocalPosition: {x: 3.6809425, y: 0.3377074, z: -11.867644}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4592525811494386119}
+  - {fileID: 6212424229603739767}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &8712189432088239807
+--- !u!1001 &1255080607590444815
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -41,7 +41,7 @@ PrefabInstance:
     - target: {fileID: 5732649670532296639, guid: 11e62a76a08ac8e419c944a55dc07e8d,
         type: 3}
       propertyPath: m_Name
-      value: Canvas
+      value: Fader
       objectReference: {fileID: 0}
     - target: {fileID: 5141993420266891128, guid: 11e62a76a08ac8e419c944a55dc07e8d,
         type: 3}
@@ -150,9 +150,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11e62a76a08ac8e419c944a55dc07e8d, type: 3}
---- !u!224 &4592525811494386119 stripped
+--- !u!224 &6212424229603739767 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5141993420266891128, guid: 11e62a76a08ac8e419c944a55dc07e8d,
     type: 3}
-  m_PrefabInstance: {fileID: 8712189432088239807}
+  m_PrefabInstance: {fileID: 1255080607590444815}
   m_PrefabAsset: {fileID: 0}

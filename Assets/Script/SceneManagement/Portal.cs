@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using Script.Controller;
+using Script.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
@@ -39,8 +41,14 @@ namespace Script.SceneManagement
                 Debug.LogError("No scene to load");
                 yield break;
             }
+            if (gameObject == null) yield break;
+            
+            var player = GameObject.FindWithTag("Player");
+            player.GetComponent<ActionScheduler>().CancelAction();
+            player.GetComponent<PlayerController>().enabled = false;
             var fader = FindObjectOfType<Fader>();
             DontDestroyOnLoad(gameObject);
+            print(gameObject.name);
             yield return fader.FadeOut(timeFadeOut);
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
             UpdatePlayer(GetOtherPortal());
